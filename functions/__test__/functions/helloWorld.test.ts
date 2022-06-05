@@ -1,9 +1,9 @@
 import axios from "axios";
 import fftest from "firebase-functions-test";
 import { expect, describe, it, afterAll } from "@jest/globals";
-import { config } from "../../config";
+import { config } from "../../src/config";
 
-const test = fftest(config, "../../../../service-account-key.json");
+const test = fftest(config, "../../../service-account-key.json");
 
 describe("helloWorld", () => {
   afterAll(() => {
