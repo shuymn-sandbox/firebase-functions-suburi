@@ -54,9 +54,9 @@ jobs:
       - name: "Format"
         run: "npm run format -w functions"
 
-  build:
+  test:
     needs: "Setup"
-    name: "Build"
+    name: "Test"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
@@ -73,3 +73,6 @@ jobs:
 
       - name: "Build"
         run: "npm run build -w functions"
+
+      - name: "Test"
+        run: "npm run test -w functions"
