@@ -1,0 +1,7 @@
+{
+  "name": "firebase-functions-suburi",
+  "private": true,
+  "volta": {
+    "node": "16.15.1"
+  }
+}
