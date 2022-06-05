@@ -1,0 +1,105 @@
+name: "CI for functions"
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "functions/**"
+      - ".github/workflows/ci_functions.yml"
+      - "package-lock.json"
+  pull_request:
+    paths:
+      - "functions/**"
+      - ".github/workflows/ci_functions.yml"
+      - "package-lock.json"
+
+jobs:
+  setup:
+    name: "Setup"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - uses: "actions/cache@v3"
+        id: "node_modules_cache_id"
+        env:
+          cache-name: "cache-node-modules"
+        with:
+          path: "**/node_modules"
+          key: "${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}"
+
+      - if: "${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}"
+        name: "Install dependencies"
+        run: "npm ci"
+
+  lint:
+    needs: "Setup"
+    name: "Lint"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - uses: "actions/cache@v3"
+        id: "node_modules_cache_id"
+        env:
+          cache-name: "cache-node-modules"
+        with:
+          path: "**/node_modules"
+          key: "${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}"
+
+      - if: "${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}"
+        name: "Install dependencies"
+        run: "npm ci"
+
+      - name: "Lint"
+        run: "npm run lint -w functions"
+
+      - name: "Format"
+        run: "npm run format -w functions"
+
+  test:
+    needs: "Setup"
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - uses: "actions/cache@v3"
+        id: "node_modules_cache_id"
+        env:
+          cache-name: "cache-node-modules"
+        with:
+          path: "**/node_modules"
+          key: "${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}"
+
+      - if: "${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}"
+        name: "Install dependencies"
+        run: "npm ci"
+
+      - name: "Build"
+        run: "npm run build -w functions"
+
+      - name: "Test"
+        run: "npm run test -w functions"
