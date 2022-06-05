@@ -4,7 +4,8 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "cz",
-    "firebase": "firebase"
+    "firebase": "firebase",
+    "update": "npm-check-updates -u && npm install"
   },
   "husky": {
     "hooks": {
@@ -19,6 +20,7 @@
     "cz-conventional-changelog-ja": "^0.0.2",
     "firebase-tools": "^11.0.1",
     "husky": "^8.0.1",
+    "npm-check-updates": "^13.1.1",
     "prettier": "^2.6.2"
   },
   "volta": {
