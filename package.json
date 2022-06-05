@@ -1,11 +1,21 @@
 {
   "name": "firebase-functions-suburi",
   "private": true,
-  "volta": {
-    "node": "16.15.1"
+  "scripts": {
+    "prepare": "husky install",
+    "commit": "cz"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
+    }
   },
   "devDependencies": {
     "commitizen": "^4.2.4",
-    "cz-conventional-changelog-ja": "^0.0.2"
+    "cz-conventional-changelog-ja": "^0.0.2",
+    "husky": "^8.0.1"
+  },
+  "volta": {
+    "node": "16.15.1"
   }
 }
