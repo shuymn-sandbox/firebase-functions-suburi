@@ -49,9 +49,10 @@ jobs:
         run: "npm ci"
 
       - name: "Lint"
-        run: |
-          "npm run lint -w functions"
-          "npm run format -w functions"
+        run: "npm run lint -w functions"
+
+      - name: "Format"
+        run: "npm run format -w functions"
 
   build:
     needs: "Setup"
