@@ -3,5 +3,9 @@
   "private": true,
   "volta": {
     "node": "16.15.1"
+  },
+  "devDependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog-ja": "^0.0.2"
   }
 }
